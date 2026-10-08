@@ -174,6 +174,9 @@ include INCLUDES_PATH . 'header.php';
                 </p>
 
                 <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+                    <a href="<?= url('track.php?rfq=' . urlencode($successRfq['rfq_number'])) ?>" class="btn btn-primary">
+                        Track RFQ Status &rarr;
+                    </a>
                     <a href="<?= url('') ?>" class="btn btn-navy">Return to Home</a>
                     <a href="<?= url('quote.php') ?>" class="btn btn-outline-gold">Submit Another RFQ</a>
                 </div>

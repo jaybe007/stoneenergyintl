@@ -128,6 +128,12 @@ $gscTag = setting('analytics_gsc_tag', '');
                     <a href="tel:<?= e($phonePrimary) ?>"><?= e($phonePrimary) ?></a> | <a href="tel:<?= e($phoneSecondary) ?>"><?= e($phoneSecondary) ?></a>
                 </span>
                 <span class="topbar-item">
+                    <a href="<?= url('track.php') ?>" title="Track Request for Quotation">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                        <span>Track RFQ</span>
+                    </a>
+                </span>
+                <span class="topbar-item">
                     <a href="<?= url('search.php') ?>" title="Search Services & Products">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                         <span>Search</span>

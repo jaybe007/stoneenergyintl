@@ -59,6 +59,7 @@ $currentYear    = date('Y');
                     <li><a href="<?= url('projects.php') ?>">Project Portfolio</a></li>
                     <li><a href="<?= url('industries.php') ?>">Industries Served</a></li>
                     <li><a href="<?= url('blog.php') ?>">News &amp; Insights</a></li>
+                    <li><a href="<?= url('track.php') ?>">Track RFQ / Tender</a></li>
                     <li><a href="<?= url('contact.php') ?>">Contact Headquarters</a></li>
                 </ul>
             </div>
