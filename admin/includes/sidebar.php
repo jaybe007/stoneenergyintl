@@ -54,6 +54,13 @@ $unreadMsgCount = (int)Database::fetchColumn("SELECT COUNT(*) FROM `contact_mess
             <?php endif; ?>
         </a>
         <?php endif; ?>
+
+        <!-- Corporate Webmail -->
+        <a href="https://stoneenergyintl.com/webmail" target="_blank" rel="noopener" class="admin-nav-item" style="color: var(--color-accent-400);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span>Corporate Webmail</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: auto; opacity: 0.6;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </a>
         <?php endif; ?>
 
         <!-- Catalogue & Services -->

@@ -39,6 +39,10 @@ include __DIR__ . '/includes/header.php';
         </p>
     </div>
     <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <a href="https://stoneenergyintl.com/webmail" target="_blank" rel="noopener" class="btn-admin btn-admin-outline" style="color: #fff; background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); display: flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span>Open Webmail (info@)</span>
+        </a>
         <?php if (Auth::hasPermission('rfqs.manage')): ?>
         <a href="<?= admin_url('rfqs.php') ?>" class="btn-admin btn-admin-primary">
             Review RFQs (<?= $newRfqs ?> New)
