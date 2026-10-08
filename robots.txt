@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /config/
+Disallow: /core/
+Disallow: /logs/
+Disallow: /database/
+Disallow: /install.php
+
+Sitemap: http://localhost/stoneenergyintl/sitemap.xml

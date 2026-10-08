@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bgG" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#334155" stroke-width="0.8" opacity="0.4"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="500" fill="url(#bgG)" />
+  <rect width="800" height="500" fill="url(#grid)" />
+  <g transform="translate(400, 220)" text-anchor="middle">
+    <circle cx="0" cy="0" r="48" fill="#1e3a8a" stroke="#d97706" stroke-width="2"/>
+    <path d="M -16 -8 L 16 -8 L 8 16 L -8 16 Z" fill="#f59e0b" opacity="0.8"/>
+    <text y="75" font-family="'Outfit', sans-serif" font-size="18" font-weight="700" fill="#f8fafc" letter-spacing="1">STONE ENERGY INT'L LTD</text>
+    <text y="98" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#94a3b8" letter-spacing="0.5">Multi-Sector Supply &amp; General Contracting</text>
+  </g>
+</svg>

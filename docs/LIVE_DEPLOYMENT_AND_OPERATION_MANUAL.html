@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>STONE ENERGY INT'L LTD - Live Deployment & Operations Manual</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm 15mm 20mm 15mm;
+            @bottom-right {
+                content: counter(page);
+            }
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: #1e293b;
+            background: #ffffff;
+            line-height: 1.55;
+            font-size: 13.5px;
+        }
+        .header-cover {
+            background: #0a192f;
+            color: #ffffff;
+            padding: 36px 30px;
+            border-radius: 8px;
+            margin-bottom: 26px;
+            border-bottom: 4px solid #d97706;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(217, 119, 6, 0.2);
+            color: #fbbf24;
+            border: 1px solid #d97706;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        h1 {
+            font-size: 26px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        .tagline {
+            color: #94a3b8;
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 11px;
+            color: #cbd5e1;
+        }
+        .meta-item strong {
+            display: block;
+            color: #ffffff;
+            font-size: 12px;
+        }
+        h2 {
+            font-size: 17px;
+            color: #0a192f;
+            margin-top: 24px;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        h3 {
+            font-size: 14.5px;
+            color: #1e3a8a;
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+        li {
+            margin-bottom: 4px;
+        }
+        code {
+            font-family: Consolas, Monaco, "Courier New", monospace;
+            background: #f1f5f9;
+            color: #0f172a;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        pre {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 12px 14px;
+            border-radius: 6px;
+            font-family: Consolas, Monaco, "Courier New", monospace;
+            font-size: 11.5px;
+            line-height: 1.45;
+            margin-bottom: 14px;
+            overflow-x: auto;
+            border-left: 3px solid #d97706;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 16px;
+            font-size: 12.5px;
+        }
+        th, td {
+            padding: 8px 10px;
+            border: 1px solid #cbd5e1;
+            text-align: left;
+        }
+        th {
+            background: #f1f5f9;
+            color: #0a192f;
+            font-weight: 700;
+        }
+        tr:nth-child(even) td {
+            background: #f8fafc;
+        }
+        .callout {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 10px 14px;
+            border-radius: 4px;
+            margin-bottom: 14px;
+            font-size: 12.5px;
+        }
+        .callout-warning {
+            background: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 10px 14px;
+            border-radius: 4px;
+            margin-bottom: 14px;
+            font-size: 12.5px;
+        }
+        .page-break {
+            page-break-before: always;
+        }
+        .footer-note {
+            margin-top: 30px;
+            padding-top: 12px;
+            border-top: 1px solid #cbd5e1;
+            text-align: center;
+            font-size: 11px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-cover">
+        <span class="badge">Official Technical Manual</span>
+        <h1>STONE ENERGY INT'L LTD</h1>
+        <div class="tagline">Production Deployment, Security Hardening &amp; CMS Operations Manual</div>
+        <div class="meta-grid">
+            <div class="meta-item">
+                <span>Architecture</span>
+                <strong>PHP 8.x / MariaDB / Vanilla JS</strong>
+            </div>
+            <div class="meta-item">
+                <span>Target Environment</span>
+                <strong>cPanel / Apache / Linux</strong>
+            </div>
+            <div class="meta-item">
+                <span>Document Version</span>
+                <strong>2.0 (Production Verified)</strong>
+            </div>
+            <div class="meta-item">
+                <span>Headquarters</span>
+                <strong>Ibadan, Oyo State, Nigeria</strong>
+            </div>
+        </div>
+    </div>
+
+    <h2>1. Hosting &amp; Server Prerequisites</h2>
+    <p>STONE ENERGY INT'L LTD is built strictly with Vanilla PHP 8.x and MySQL (PDO), designed specifically for standard shared hosting and cPanel environments with zero external framework dependencies.</p>
+    <ul>
+        <li><strong>Web Server:</strong> Apache 2.4+ (with <code>mod_rewrite</code>, <code>mod_headers</code>, <code>mod_expires</code>, <code>mod_deflate</code> enabled)</li>
+        <li><strong>PHP Version:</strong> PHP 8.1 or PHP 8.2 with standard extensions: <code>pdo_mysql</code>, <code>fileinfo</code>, <code>mbstring</code>, <code>openssl</code>, <code>json</code></li>
+        <li><strong>Database:</strong> MySQL 5.7+ or MariaDB 10.4+ with InnoDB engine and <code>utf8mb4</code> charset</li>
+        <li><strong>Security:</strong> SSL Certificate (cPanel AutoSSL or Let's Encrypt)</li>
+    </ul>
+
+    <h2>2. Step-by-Step Live Deployment (cPanel)</h2>
+
+    <h3>Step 2.1: Upload and Extract Files</h3>
+    <ol>
+        <li>Compress all project files into a ZIP archive (excluding local <code>.git/</code> directories).</li>
+        <li>Log in to cPanel, open <strong>File Manager</strong>, and navigate to <code>public_html/</code> (or designated subdomain).</li>
+        <li>Click <strong>Upload</strong>, upload the ZIP archive, and extract it directly into <code>public_html/</code>.</li>
+        <li>Ensure hidden files are visible in cPanel File Manager to confirm <code>.htaccess</code> is present.</li>
+    </ol>
+
+    <h3>Step 2.2: Set Linux File Permissions</h3>
+    <p>Set appropriate Linux file permissions to protect sensitive code while allowing uploads and logging:</p>
+    <ul>
+        <li><strong>Folders:</strong> <code>755</code> (<code>rwxr-xr-x</code>)</li>
+        <li><strong>Files:</strong> <code>644</code> (<code>rw-r--r--</code>)</li>
+        <li><strong>Writable Directories:</strong> <code>assets/uploads/</code>, <code>logs/</code>, and <code>config/</code> must have <code>755</code> or <code>775</code> permissions.</li>
+    </ul>
+
+    <h3>Step 2.3: Create Database &amp; Import Schema</h3>
+    <ol>
+        <li>In cPanel, open <strong>MySQL® Databases</strong>.</li>
+        <li>Create a database: e.g., <code>cpuser_stoneenergy</code>.</li>
+        <li>Create a user: e.g., <code>cpuser_stoneadmin</code> with a strong generated password.</li>
+        <li>Add the user to the database and check <strong>ALL PRIVILEGES</strong>.</li>
+        <li>Open <strong>phpMyAdmin</strong>, select the newly created database, go to the <strong>Import</strong> tab, choose <code>database/schema.sql</code>, and click <strong>Import</strong>.</li>
+    </ol>
+
+    <div class="page-break"></div>
+
+    <h2>3. Production Environment Configuration (.env)</h2>
+    <p>Create or update the production <code>.env</code> file in the web root. Replace placeholder credentials with actual server parameters:</p>
+
+<pre>APP_NAME="STONE ENERGY INT'L LTD"
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://www.stoneenergyintl.com
+
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=cpuser_stoneenergy
+DB_USER=cpuser_stoneadmin
+DB_PASS=YourStrongDatabasePasswordHere
+
+MAIL_DRIVER=smtp
+SMTP_HOST=mail.stoneenergyintl.com
+SMTP_PORT=465
+SMTP_USER=info@stoneenergyintl.com
+SMTP_PASS=YourCorporateEmailPasswordHere
+SMTP_ENCRYPTION=ssl
+MAIL_FROM_ADDRESS=info@stoneenergyintl.com
+MAIL_FROM_NAME="STONE ENERGY INT'L LTD"
+
+SESSION_LIFETIME=7200
+LOGIN_MAX_ATTEMPTS=5
+LOGIN_LOCKOUT_MINUTES=15</pre>
+
+    <div class="callout-warning">
+        <strong>CRITICAL SECURITY DIRECTIVE:</strong> Always ensure <code>APP_DEBUG=false</code> in production. This guarantees that internal server paths, SQL structures, and stack traces are suppressed, redirecting visitors to graceful error pages (404, 500).
+    </div>
+
+    <h2>4. Post-Deployment Security Hardening</h2>
+    <ul>
+        <li><strong>Delete or Lock Installer:</strong> Ensure <code>config/installed.lock</code> exists. Delete <code>install.php</code> from the server so the installation wizard cannot be re-executed.</li>
+        <li><strong>Enforce HTTPS Redirection:</strong> Verify that <code>.htaccess</code> redirects all HTTP requests to HTTPS:
+            <pre>&lt;IfModule mod_rewrite.c&gt;
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+&lt;/IfModule&gt;</pre>
+        </li>
+        <li><strong>Security Directives in .htaccess:</strong> The provided <code>.htaccess</code> denies direct access to <code>.env</code>, <code>.lock</code>, <code>.sql</code>, <code>.log</code>, and prevents PHP script execution inside <code>assets/uploads/</code>.</li>
+        <li><strong>Rotate Admin Password:</strong> Log into <code>https://yourdomain.com/admin/login.php</code> immediately with default credentials (<code>admin</code> / <code>AdminPassword2026!</code>) and update to a strong custom corporate passphrase.</li>
+    </ul>
+
+    <h2>5. Staff Roles &amp; Access Control Matrix</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Administrative Role</th>
+                <th>Permitted Operations</th>
+                <th>Target Staff</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Super Admin</strong></td>
+                <td>Full system control, administrative users, backups, audit trails, and site settings.</td>
+                <td>Managing Director, Chief Information Officer</td>
+            </tr>
+            <tr>
+                <td><strong>Admin</strong></td>
+                <td>RFQs, client messages, products, projects, services, articles, and content settings.</td>
+                <td>General Manager, Head of Operations</td>
+            </tr>
+            <tr>
+                <td><strong>Editor</strong></td>
+                <td>Create and update product items, project case studies, and blog articles.</td>
+                <td>Senior Procurement Officer, Project Engineer</td>
+            </tr>
+            <tr>
+                <td><strong>Content Manager</strong></td>
+                <td>Upload site photography, update news articles, edit descriptions.</td>
+                <td>Corporate Communications Officer</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2>6. Day-to-Day Operations &amp; Commercial Workflow</h2>
+
+    <h3>6.1 Request for Quotation (RFQ) Processing</h3>
+    <ol>
+        <li>Incoming RFQs appear in <code>/admin/rfqs.php</code> with a status badge (<code>NEW</code>).</li>
+        <li>Click <strong>Review &rarr;</strong> to open the full technical specification, customer contact details, item breakdown, and attached tender PDF or drawing.</li>
+        <li>Update the operational status: <code>NEW</code> &rarr; <code>UNDER REVIEW</code> &rarr; <code>QUOTATION PREPARED</code> &rarr; <code>SENT</code> &rarr; <code>NEGOTIATION</code> &rarr; <code>APPROVED</code> &rarr; <code>COMPLETED</code>.</li>
+        <li>Check <strong>"Send email notification to client"</strong> to send an automated status email with your notes.</li>
+        <li>Click <strong>Print RFQ Sheet</strong> to generate a print-ready technical tender worksheet for physical procurement files.</li>
+    </ol>
+
+    <h3>6.2 Product Catalog &amp; Technical Datasheet Management</h3>
+    <ol>
+        <li>Navigate to <code>/admin/products.php</code> &rarr; Click <strong>+ Add New Product</strong>.</li>
+        <li>Enter product specifications separated by double pipes (e.g., <code>Material: ASTM Carbon Steel||Pressure: ANSI 300#||End Connection: Flanged RF</code>).</li>
+        <li>Upload the <strong>Primary Product Image</strong> and optional <strong>Additional Gallery Photos</strong>.</li>
+        <li>Upload the <strong>Technical Datasheet (PDF)</strong>. This automatically generates a "Download Technical Datasheet (PDF)" button on the public product page.</li>
+    </ol>
+
+    <h3>6.3 Project Portfolio Case Studies</h3>
+    <ol>
+        <li>Navigate to <code>/admin/projects.php</code> &rarr; Click <strong>+ Add New Project</strong>.</li>
+        <li>Enter project title, sector category, location, and client name (use <code>[ADD CLIENT NAME]</code> if confidential).</li>
+        <li>Enter scope of work bullet points separated by <code>||</code>.</li>
+        <li>Upload the <strong>Featured Image</strong> and multiple <strong>Site Gallery Photos</strong>. Visitors can interactively preview photos on the project detail page.</li>
+    </ol>
+
+    <h3>6.4 Site Settings &amp; Corporate Identification</h3>
+    <ol>
+        <li>Navigate to <code>/admin/settings.php</code>.</li>
+        <li><strong>General &amp; Legal:</strong> Update the CAC registration number and RC number once verified.</li>
+        <li><strong>Headquarters &amp; Contact:</strong> Verify physical address in Ibadan, telephone hotlines, corporate email, and Google Maps embed code.</li>
+        <li><strong>WhatsApp Widget:</strong> Enable/disable floating WhatsApp button and customize pre-filled greeting message.</li>
+        <li><strong>SEO &amp; Analytics:</strong> Input Google Analytics 4 ID (<code>G-XXXXXXXXXX</code>) and Google Search Console verification meta tag.</li>
+    </ol>
+
+    <h2>7. Automated Backup &amp; Disaster Recovery</h2>
+    <ul>
+        <li><strong>Manual Backup:</strong> Go to <code>/admin/backup.php</code> &rarr; click <strong>Generate &amp; Download SQL Backup Now</strong>.</li>
+        <li><strong>Automated cPanel Daily Cron:</strong> In cPanel &rarr; <strong>Cron Jobs</strong>, schedule the following daily command at 02:00 AM:
+            <pre>mysqldump -u cpuser_stoneadmin -p'YourPassword' cpuser_stoneenergy | gzip &gt; /home/username/backups/db_$(date +\%F).sql.gz</pre>
+        </li>
+    </ul>
+
+    <div class="footer-note">
+        <strong>STONE ENERGY INT'L LTD</strong> &bull; General Contractor &amp; Multi-Sector Supply Solutions &bull; Ibadan, Oyo State, Nigeria<br>
+        Document Generated for Production System &bull; All Rights Reserved &copy; 2026
+    </div>
+
+</body>
+</html>
