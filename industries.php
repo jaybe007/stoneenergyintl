@@ -28,12 +28,12 @@ include INCLUDES_PATH . 'header.php';
                 <div class="service-icon-box">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18"></path><path d="M15 10h4a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-4"></path><path d="M7 11h4"></path></svg>
                 </div>
-                <h3>Oil &amp; Gas / Energy</h3>
+                <h3>Oil &amp; Gas Supply</h3>
                 <p>
-                    Downstream operations, depot facilities, and industrial users require reliable sourcing of pipeline valves, industrial fittings, flow equipment, and safety consumables. We handle procurement logistics with complete documentation.
+                    Our core operation is the dependable commercial supply of crude oil and refined petroleum products (PMS, AGO/Diesel, DPK, and industrial fuels) to downstream operators, depots, power plants, and corporate fleets with dedicated logistics and quality assurance.
                 </p>
                 <div style="margin-top: auto; padding-top: 14px; border-top: 1px solid var(--color-gray-100);">
-                    <a href="<?= url('services.php?slug=oil-and-gas-supply') ?>" class="service-link">View Procurement Scope &rarr;</a>
+                    <a href="<?= url('services.php?slug=oil-and-gas-supply') ?>" class="service-link">View Supply Scope &rarr;</a>
                 </div>
             </div>
 
@@ -79,17 +79,17 @@ include INCLUDES_PATH . 'header.php';
                 </div>
             </div>
 
-            <!-- 5. Agroprocessing -->
+            <!-- 5. Agroprocessing & Animal Feeds -->
             <div class="service-card">
                 <div class="service-icon-box">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                 </div>
-                <h3>Agroprocessing &amp; Milling</h3>
+                <h3>Agroprocessing &amp; Animal Feeds</h3>
                 <p>
-                    Supporting cassava processors, grain millers, and food processing lines with durable processing machinery, replacement spare parts, and consistent raw material supply streams.
+                    Our main focus is the production of premium quality floating fish feed (formulated for high buoyancy, nutrition, and fast fish growth) and general animal feeds (poultry, pig, and livestock feeds) using modern milling technology.
                 </p>
                 <div style="margin-top: auto; padding-top: 14px; border-top: 1px solid var(--color-gray-100);">
-                    <a href="<?= url('services.php?slug=agroprocessing') ?>" class="service-link">View Processing Scope &rarr;</a>
+                    <a href="<?= url('services.php?slug=agroprocessing') ?>" class="service-link">View Feeds &amp; Processing Scope &rarr;</a>
                 </div>
             </div>
 
