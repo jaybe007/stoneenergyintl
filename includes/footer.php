@@ -107,7 +107,7 @@ $currentYear    = date('Y');
         <!-- Copyright & Legal -->
         <div class="container footer-bottom">
             <div>
-                &copy; <?= $currentYear ?> <?= e($companyName) ?>. All Rights Reserved.
+                &copy; <?= $currentYear ?> <?= e($companyName) ?>. All Rights Reserved. &bull; Designed by <a href="https://cloudcurrentng.com" target="_blank" rel="noopener" style="color: var(--color-accent-400); text-decoration: none;">cloudcurrentng.com</a>
             </div>
             <div class="footer-legal-links">
                 <a href="<?= url('privacy.php') ?>">Privacy Policy</a>
