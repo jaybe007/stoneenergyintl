@@ -14,6 +14,22 @@ $page = max(1, (int)($_GET['page'] ?? 1));
 $perPage = 15;
 $offset = ($page - 1) * $perPage;
 
+// Delete RFQ via POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete') {
+    CSRF::validateOrAbort();
+    $rfqId = (int)($_POST['rfq_id'] ?? 0);
+    if ($rfqId > 0) {
+        $rfq = Database::fetchOne("SELECT * FROM `rfqs` WHERE `id` = :id", [':id' => $rfqId]);
+        if ($rfq) {
+            Database::delete('rfqs', '`id` = :id', [':id' => $rfqId]);
+            Audit::log('delete_rfq', 'rfqs', (string)$rfqId, "Deleted RFQ {$rfq['rfq_number']} permanently");
+            set_flash('success', "RFQ {$rfq['rfq_number']} has been permanently deleted.");
+        }
+    }
+    header('Location: ' . admin_url('rfqs.php?' . http_build_query($_GET)));
+    exit;
+}
+
 // Quick status change via POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update_status') {
     CSRF::validateOrAbort();
@@ -153,9 +169,19 @@ include __DIR__ . '/includes/header.php';
                         <small><?= format_date($rfq['created_at']) ?></small>
                     </td>
                     <td>
-                        <a href="<?= admin_url('rfq-view.php?id=' . $rfq['id']) ?>" class="btn-admin btn-admin-primary btn-icon">
-                            Review &rarr;
-                        </a>
+                        <div style="display: flex; gap: 6px; align-items: center;">
+                            <a href="<?= admin_url('rfq-view.php?id=' . $rfq['id']) ?>" class="btn-admin btn-admin-primary btn-icon" style="padding: 5px 11px; font-size: 0.8rem;">
+                                Review &rarr;
+                            </a>
+                            <form action="<?= admin_url('rfqs.php?' . http_build_query($_GET)) ?>" method="POST" onsubmit="return confirm('WARNING: Are you sure you want to permanently delete RFQ <?= e($rfq['rfq_number']) ?>?');" style="margin: 0; display: inline;">
+                                <?= csrf_field() ?>
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="rfq_id" value="<?= $rfq['id'] ?>">
+                                <button type="submit" class="btn-admin" style="background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; padding: 5px 8px; font-size: 0.8rem; cursor: pointer;" title="Delete RFQ">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                </button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 <?php endforeach; ?>
