@@ -58,9 +58,9 @@ AddDefaultCharset UTF-8
 </IfModule>
 
 # Custom Error Documents
-ErrorDocument 404 /stoneenergyintl/404.php
-ErrorDocument 403 /stoneenergyintl/403.php
-ErrorDocument 500 /stoneenergyintl/500.php
+ErrorDocument 404 /404.php
+ErrorDocument 403 /403.php
+ErrorDocument 500 /500.php
 
 # PHP Execution limits & tuning (cPanel compatible)
 <IfModule mod_php.c>
