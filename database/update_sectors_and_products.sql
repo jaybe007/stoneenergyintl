@@ -70,3 +70,16 @@ ON DUPLICATE KEY UPDATE
   `short_description` = VALUES(`short_description`),
   `description` = VALUES(`description`),
   `specifications` = VALUES(`specifications`);
+
+-- 5. Update SMTP & Email in site_settings
+UPDATE `site_settings` SET `setting_value` = 'info@stoneenergyintl.com' WHERE `setting_key` = 'email_primary';
+UPDATE `site_settings` SET `setting_value` = 'info@stoneenergyintl.com' WHERE `setting_key` = 'email_support';
+UPDATE `site_settings` SET `setting_value` = '1' WHERE `setting_key` = 'smtp_enabled';
+UPDATE `site_settings` SET `setting_value` = 'mail.stoneenergyintl.com' WHERE `setting_key` = 'smtp_host';
+UPDATE `site_settings` SET `setting_value` = '465' WHERE `setting_key` = 'smtp_port';
+UPDATE `site_settings` SET `setting_value` = 'info@stoneenergyintl.com' WHERE `setting_key` = 'smtp_username';
+UPDATE `site_settings` SET `setting_value` = 'FXayoade1976@' WHERE `setting_key` = 'smtp_password';
+UPDATE `site_settings` SET `setting_value` = 'ssl' WHERE `setting_key` = 'smtp_encryption';
+UPDATE `site_settings` SET `setting_value` = 'info@stoneenergyintl.com' WHERE `setting_key` = 'smtp_from_email';
+UPDATE `site_settings` SET `setting_value` = "STONE ENERGY INT'L LTD" WHERE `setting_key` = 'smtp_from_name';
+
