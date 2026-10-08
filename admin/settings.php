@@ -13,6 +13,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     CSRF::validateOrAbort();
 
     $settingsToSave = $_POST['settings'] ?? [];
+
+    // Handle Primary Logo Upload
+    if (isset($_FILES['logo_file']) && $_FILES['logo_file']['error'] === UPLOAD_ERR_OK) {
+        $resLogo = Uploader::upload($_FILES['logo_file'], 'Primary Corporate Header Logo');
+        if ($resLogo['success']) {
+            $settingsToSave['logo_url'] = $resLogo['file_path'];
+        } else {
+            set_flash('error', 'Primary logo upload error: ' . $resLogo['error']);
+        }
+    }
+
+    // Handle Light / Footer Logo Upload
+    if (isset($_FILES['logo_light_file']) && $_FILES['logo_light_file']['error'] === UPLOAD_ERR_OK) {
+        $resLight = Uploader::upload($_FILES['logo_light_file'], 'Dark Background / Light Logo');
+        if ($resLight['success']) {
+            $settingsToSave['logo_light_url'] = $resLight['file_path'];
+        } else {
+            set_flash('error', 'Light logo upload error: ' . $resLight['error']);
+        }
+    }
+
+    // Handle Favicon Upload
+    if (isset($_FILES['favicon_file']) && $_FILES['favicon_file']['error'] === UPLOAD_ERR_OK) {
+        $resFav = Uploader::upload($_FILES['favicon_file'], 'Browser Favicon');
+        if ($resFav['success']) {
+            $settingsToSave['favicon_url'] = $resFav['file_path'];
+        } else {
+            set_flash('error', 'Favicon upload error: ' . $resFav['error']);
+        }
+    }
+
     foreach ($settingsToSave as $key => $val) {
         $val = trim($val);
         Settings::set($key, $val);
@@ -26,8 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    Audit::log('update_settings', 'settings', null, "Updated corporate site settings");
-    set_flash('success', 'Site settings updated successfully.');
+    Audit::log('update_settings', 'settings', null, "Updated corporate site settings & logo assets");
+    set_flash('success', 'Site settings and logo assets updated successfully.');
     header('Location: ' . admin_url('settings.php'));
     exit;
 }
@@ -43,6 +74,7 @@ include __DIR__ . '/includes/header.php';
         <!-- Navigation Tabs -->
         <div class="tabs-nav">
             <button type="button" class="tab-link active" data-tab="tabGeneral">General &amp; Legal</button>
+            <button type="button" class="tab-link" data-tab="tabLogos">Logo &amp; Brand Assets</button>
             <button type="button" class="tab-link" data-tab="tabContact">Headquarters &amp; Contact</button>
             <button type="button" class="tab-link" data-tab="tabWhatsapp">WhatsApp Widget</button>
             <button type="button" class="tab-link" data-tab="tabSocial">Social Networks</button>
@@ -50,7 +82,7 @@ include __DIR__ . '/includes/header.php';
             <button type="button" class="tab-link" data-tab="tabAnalytics">SEO &amp; Analytics</button>
         </div>
 
-        <form action="<?= admin_url('settings.php') ?>" method="POST">
+        <form action="<?= admin_url('settings.php') ?>" method="POST" enctype="multipart/form-data">
             <?= csrf_field() ?>
 
             <!-- Tab 1: General & Legal -->
@@ -84,15 +116,123 @@ include __DIR__ . '/includes/header.php';
                     </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <div class="form-row">
-                        <label class="form-label-admin">Logo Asset Path</label>
-                        <input type="text" name="settings[logo_url]" class="form-control-admin" value="<?= e(setting('logo_url', 'assets/images/logo.svg')) ?>">
+                <!-- Logo Quick Link Callout -->
+                <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 16px 20px; margin-top: 14px; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="background: #ffffff; border: 1px solid #bfdbfe; border-radius: 6px; padding: 4px 8px; display: flex; align-items: center;">
+                            <img src="<?= upload_url(setting('logo_url', 'assets/images/logo.svg')) ?>" alt="Logo" style="height: 32px; max-width: 120px; object-fit: contain;">
+                        </div>
+                        <div>
+                            <strong style="color: #1e40af; font-size: 0.92rem;">Looking to upload or replace your company logo?</strong>
+                            <p style="margin: 2px 0 0 0; color: #3b82f6; font-size: 0.82rem;">Upload your primary header logo, dark footer logo, or browser favicon directly.</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-admin btn-admin-primary" onclick="document.querySelector('[data-tab=\'tabLogos\']').click();" style="font-size: 0.82rem;">
+                        Go to Logo Upload &rarr;
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab 2: Brand Logo & Identity Assets -->
+            <div id="tabLogos" class="tab-content" style="display: none;">
+                <div style="background: #f8fafc; border: 1px solid var(--admin-border); border-radius: 8px; padding: 18px 22px; margin-bottom: 24px;">
+                    <h4 style="margin: 0 0 6px 0; color: var(--admin-text); font-size: 1.05rem;">Corporate Visual Identity &amp; Logo Assets</h4>
+                    <p style="margin: 0; color: var(--admin-text-muted); font-size: 0.88rem;">
+                        Upload your official corporate logos and browser favicon below. All uploads automatically update the public website header, footer, client RFQ tracking portal, administrative login, and emails.
+                    </p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+                    <!-- Primary Logo (Light Backgrounds) -->
+                    <div style="border: 1px solid var(--admin-border); border-radius: 8px; padding: 20px; background: #ffffff; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                                <label class="form-label-admin" style="font-weight: 700; margin-bottom: 0;">1. Primary Header Logo (Light Backgrounds)</label>
+                                <span style="font-size: 0.75rem; background: #e0f2fe; color: #0369a1; padding: 3px 8px; border-radius: 4px; font-weight: 600;">Website Header &amp; Login</span>
+                            </div>
+                            
+                            <p style="font-size: 0.82rem; color: var(--admin-text-muted); margin-bottom: 14px;">
+                                Displayed on white/light backgrounds across navigation headers, quotes, and portals.
+                            </p>
+
+                            <!-- Current Preview Box -->
+                            <div style="background: #ffffff; border: 2px dashed #cbd5e1; border-radius: 6px; padding: 20px; text-align: center; margin-bottom: 16px; min-height: 100px; display: flex; align-items: center; justify-content: center;">
+                                <img src="<?= upload_url(setting('logo_url', 'assets/images/logo.svg')) ?>" 
+                                     id="previewPrimaryLogo" 
+                                     alt="Current Primary Logo" 
+                                     style="max-height: 70px; max-width: 100%; object-fit: contain;">
+                            </div>
+
+                            <div class="form-row" style="margin-bottom: 12px;">
+                                <label class="form-label-admin">Upload New Primary Logo File</label>
+                                <input type="file" name="logo_file" accept=".png,.jpg,.jpeg,.webp,.svg" class="form-control-admin" onchange="previewImage(this, 'previewPrimaryLogo')">
+                                <small style="color: var(--admin-text-muted); font-size: 0.75rem;">Supported: PNG (transparent background recommended), SVG, WEBP, JPG. Max 10MB.</small>
+                            </div>
+                        </div>
+
+                        <div class="form-row" style="margin-bottom: 0; padding-top: 10px; border-top: 1px solid #f1f5f9;">
+                            <label class="form-label-admin" style="font-size: 0.78rem;">Or Asset Path / URL</label>
+                            <input type="text" name="settings[logo_url]" class="form-control-admin" style="font-size: 0.82rem;" value="<?= e(setting('logo_url', 'assets/images/logo.svg')) ?>">
+                        </div>
                     </div>
 
-                    <div class="form-row">
-                        <label class="form-label-admin">Favicon Asset Path</label>
-                        <input type="text" name="settings[favicon_url]" class="form-control-admin" value="<?= e(setting('favicon_url', 'assets/images/favicon.svg')) ?>">
+                    <!-- Light / White Logo (Dark Backgrounds) -->
+                    <div style="border: 1px solid var(--admin-border); border-radius: 8px; padding: 20px; background: #ffffff; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                                <label class="form-label-admin" style="font-weight: 700; margin-bottom: 0;">2. Footer &amp; Dark Mode Logo (Dark Backgrounds)</label>
+                                <span style="font-size: 0.75rem; background: #fef3c7; color: #92400e; padding: 3px 8px; border-radius: 4px; font-weight: 600;">Dark Footer &amp; Sidebar</span>
+                            </div>
+                            
+                            <p style="font-size: 0.82rem; color: var(--admin-text-muted); margin-bottom: 14px;">
+                                Displayed on dark corporate footer and admin navigation sidebar for high contrast.
+                            </p>
+
+                            <!-- Current Preview Box (Dark Background) -->
+                            <div style="background: #0a192f; border: 2px dashed #334155; border-radius: 6px; padding: 20px; text-align: center; margin-bottom: 16px; min-height: 100px; display: flex; align-items: center; justify-content: center;">
+                                <img src="<?= upload_url(setting('logo_light_url', setting('logo_url', 'assets/images/logo-light.svg'))) ?>" 
+                                     id="previewLightLogo" 
+                                     alt="Current Light Logo" 
+                                     style="max-height: 70px; max-width: 100%; object-fit: contain;">
+                            </div>
+
+                            <div class="form-row" style="margin-bottom: 12px;">
+                                <label class="form-label-admin">Upload New Light/White Logo</label>
+                                <input type="file" name="logo_light_file" accept=".png,.jpg,.jpeg,.webp,.svg" class="form-control-admin" onchange="previewImage(this, 'previewLightLogo')">
+                                <small style="color: var(--admin-text-muted); font-size: 0.75rem;">Supported: PNG (white/transparent), SVG, WEBP. Max 10MB.</small>
+                            </div>
+                        </div>
+
+                        <div class="form-row" style="margin-bottom: 0; padding-top: 10px; border-top: 1px solid #f1f5f9;">
+                            <label class="form-label-admin" style="font-size: 0.78rem;">Or Asset Path / URL</label>
+                            <input type="text" name="settings[logo_light_url]" class="form-control-admin" style="font-size: 0.82rem;" value="<?= e(setting('logo_light_url', 'assets/images/logo-light.svg')) ?>">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Favicon Card -->
+                <div style="border: 1px solid var(--admin-border); border-radius: 8px; padding: 20px; background: #ffffff; max-width: 650px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <label class="form-label-admin" style="font-weight: 700; margin-bottom: 0;">3. Browser Tab Favicon</label>
+                        <span style="font-size: 0.75rem; background: #f1f5f9; color: #475569; padding: 3px 8px; border-radius: 4px; font-weight: 600;">Tab Icon</span>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 16px;">
+                        <div style="width: 56px; height: 56px; border: 1px solid var(--admin-border); border-radius: 8px; background: #f8fafc; display: flex; align-items: center; justify-content: center;">
+                            <img src="<?= upload_url(setting('favicon_url', 'assets/images/favicon.svg')) ?>" 
+                                 id="previewFavicon" 
+                                 alt="Favicon Preview" 
+                                 style="width: 32px; height: 32px; object-fit: contain;">
+                        </div>
+                        <div style="flex-grow: 1;">
+                            <input type="file" name="favicon_file" accept=".ico,.png,.svg" class="form-control-admin" onchange="previewImage(this, 'previewFavicon')">
+                            <small style="color: var(--admin-text-muted); font-size: 0.75rem;">Supported: ICO, PNG, SVG (Recommended size: 32x32 or 64x64 square).</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row" style="margin-bottom: 0;">
+                        <label class="form-label-admin" style="font-size: 0.78rem;">Or Asset Path / URL</label>
+                        <input type="text" name="settings[favicon_url]" class="form-control-admin" style="font-size: 0.82rem;" value="<?= e(setting('favicon_url', 'assets/images/favicon.svg')) ?>">
                     </div>
                 </div>
             </div>
@@ -274,5 +414,31 @@ include __DIR__ . '/includes/header.php';
         </form>
     </div>
 </div>
+
+<script>
+function previewImage(input, targetId) {
+    if (input.files && input.files[0]) {
+        const file = input.files[0];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const previewEl = document.getElementById(targetId);
+            if (previewEl) {
+                previewEl.src = e.target.result;
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const hash = window.location.hash.replace('#', '') || (new URLSearchParams(window.location.search)).get('tab');
+    if (hash) {
+        const targetBtn = document.querySelector(`.tab-link[data-tab="${hash}"]`);
+        if (targetBtn) {
+            targetBtn.click();
+        }
+    }
+});
+</script>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>

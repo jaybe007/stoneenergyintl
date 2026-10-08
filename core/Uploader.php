@@ -8,11 +8,13 @@ declare(strict_types=1);
 
 class Uploader {
     private const ALLOWED_MIMES = [
-        'jpg'  => 'image/jpeg',
-        'jpeg' => 'image/jpeg',
-        'png'  => 'image/png',
-        'webp' => 'image/webp',
-        'pdf'  => 'application/pdf',
+        'jpg'  => ['image/jpeg'],
+        'jpeg' => ['image/jpeg'],
+        'png'  => ['image/png'],
+        'webp' => ['image/webp'],
+        'pdf'  => ['application/pdf'],
+        'svg'  => ['image/svg+xml', 'image/svg', 'text/xml', 'text/plain', 'application/xml'],
+        'ico'  => ['image/x-icon', 'image/vnd.microsoft.icon', 'image/ico', 'application/octet-stream'],
     ];
 
     private const MAX_SIZE = 10 * 1024 * 1024; // 10 Megabytes
@@ -49,8 +51,21 @@ class Uploader {
         $extension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
 
         // Check extension match and MIME match
-        if (!array_key_exists($extension, self::ALLOWED_MIMES) || self::ALLOWED_MIMES[$extension] !== $realMime) {
-            return ['success' => false, 'error' => 'Unsupported file format. Permitted types: JPG, PNG, WEBP, PDF.'];
+        if (!array_key_exists($extension, self::ALLOWED_MIMES)) {
+            return ['success' => false, 'error' => 'Unsupported file format. Permitted types: JPG, PNG, WEBP, SVG, ICO, PDF.'];
+        }
+
+        $validMimes = self::ALLOWED_MIMES[$extension];
+        if (!in_array($realMime, $validMimes, true)) {
+            return ['success' => false, 'error' => "Invalid file content for {$extension} file."];
+        }
+
+        // SVG security sanitize check
+        if ($extension === 'svg') {
+            $svgContent = (string)file_get_contents($file['tmp_name']);
+            if (stripos($svgContent, '<script') !== false || stripos($svgContent, 'javascript:') !== false || stripos($svgContent, 'onload=') !== false) {
+                return ['success' => false, 'error' => 'SVG file contains disallowed executable script content.'];
+            }
         }
 
         // Ensure upload directory exists and is writable

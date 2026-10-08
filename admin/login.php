@@ -87,7 +87,7 @@ $companyName = setting('company_name', "STONE ENERGY INT'L LTD");
 <body class="login-body">
     <div class="login-card">
         <div class="login-header">
-            <img src="<?= asset('images/logo.svg') ?>" alt="<?= e($companyName) ?>">
+            <img src="<?= upload_url(setting('logo_url', 'assets/images/logo.svg')) ?>" alt="<?= e($companyName) ?>" style="max-height: 52px; max-width: 240px; object-fit: contain;">
             <h2>Administrative Access</h2>
             <p>Enter your authorized credentials to manage CMS</p>
         </div>

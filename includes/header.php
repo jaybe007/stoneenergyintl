@@ -35,7 +35,7 @@ $gscTag = setting('analytics_gsc_tag', '');
     <title><?= e($pageTitle) ?></title>
     <meta name="description" content="<?= e($pageDescription) ?>">
     <link rel="canonical" href="<?= e($canonicalUrl) ?>">
-    <link rel="icon" type="image/svg+xml" href="<?= upload_url($faviconUrl, 'assets/images/favicon.svg') ?>">
+    <link rel="icon" href="<?= upload_url($faviconUrl, 'assets/images/favicon.svg') ?>">
 
     <!-- Open Graph / Meta -->
     <meta property="og:type" content="website">

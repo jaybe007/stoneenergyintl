@@ -36,7 +36,8 @@ $currentYear    = date('Y');
         <div class="container footer-grid">
             <!-- Company Overview & Positioning -->
             <div class="footer-about">
-                <img src="<?= asset('images/logo-light.svg') ?>" alt="<?= e($companyName) ?> Logo Light">
+                <?php $footerLogoUrl = setting('logo_light_url', setting('logo_url', 'assets/images/logo-light.svg')); ?>
+                <img src="<?= upload_url($footerLogoUrl, 'assets/images/logo-light.svg') ?>" alt="<?= e($companyName) ?> Logo" style="max-height: 48px; max-width: 220px; object-fit: contain;">
                 <p>
                     <strong><?= e($companyName) ?></strong> is a premier Nigerian general contracting and multi-sector supply solutions partner. We deliver procurement reliability and construction competence across oil & gas, building infrastructure, medical healthcare, and agribusiness.
                 </p>

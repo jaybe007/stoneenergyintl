@@ -64,7 +64,7 @@ $companyName = setting('company_name', "STONE ENERGY INT'L LTD");
 <body class="login-body">
     <div class="login-card">
         <div style="text-align: center; margin-bottom: 24px;">
-            <img src="<?= asset('images/logo.svg') ?>" alt="<?= e($companyName) ?>" style="height: 44px; margin-bottom: 12px;">
+            <img src="<?= upload_url(setting('logo_url', 'assets/images/logo.svg')) ?>" alt="<?= e($companyName) ?>" style="max-height: 48px; max-width: 240px; object-fit: contain; margin-bottom: 12px;">
             <h2 style="font-size: 1.35rem; color: #0a192f;">Set New Password</h2>
             <p style="font-size: 0.85rem; color: #64748b;">Enter your new authorized admin credentials</p>
         </div>

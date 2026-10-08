@@ -80,7 +80,11 @@ The RFQ system is a core commercial feature of the website.
 
 Navigate to **Site Settings** in the sidebar. The settings are organized into tabs:
 
-* **General & Legal:** Update Company Legal Name, Motto, Tagline, CAC Number placeholder, RC Number placeholder, and Logo paths.
+* **General & Legal:** Update Company Legal Name, Motto, Tagline, CAC Number placeholder, and RC Number placeholder.
+* **Logo & Brand Assets (or sidebar "Logo & Branding"):** Upload your official company logos directly from your device with instant live preview:
+  * **Primary Header Logo:** Used across website navigation, client quote tracking, print sheets, and admin login. (Supports PNG with transparency, SVG, WEBP, JPG up to 10MB).
+  * **Dark Mode / Footer Logo:** Used on dark footer and admin navigation sidebar for optimal contrast.
+  * **Browser Favicon:** Used in browser tabs and bookmarks (supports ICO, PNG, SVG).
 * **Headquarters & Contact:** Update physical office address in Ibadan, primary & secondary phone hotlines, corporate emails, and business hours.
 * **WhatsApp Widget:** Enable or disable the floating button, set the WhatsApp business phone number, and customize the pre-filled customer message.
 * **Social Networks:** Update links for LinkedIn, Facebook, X/Twitter, Instagram, and YouTube.
