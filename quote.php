@@ -78,14 +78,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ]);
 
                 // Insert into rfq_items table for normalized line-item tracking
-                Database::insert('rfq_items', [
-                    'rfq_id'       => $rfqId,
-                    'item_name'    => $itemOrService,
-                    'description'  => truncate($description, 200),
-                    'quantity'     => $quantity ?: '1 Lot',
-                    'unit'         => 'Specified Scope',
-                    'target_price' => null
-                ]);
+                try {
+                    Database::insert('rfq_items', [
+                        'rfq_id'         => $rfqId,
+                        'item_name'      => $itemOrService,
+                        'specifications' => truncate($description, 200),
+                        'quantity'       => $quantity ?: '1 Lot',
+                        'unit'           => 'Specified Scope'
+                    ]);
+                } catch (Exception $e) {
+                    error_log("rfq_items notice: " . $e->getMessage());
+                }
 
                 // Record Audit Log
                 Audit::log('submit_rfq', 'rfqs', (string)$rfqId, "New RFQ {$rfqNumber} submitted by {$customerName} ({$email})");
@@ -106,9 +109,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'project_description'   => $description
                 ];
 
-                // Send email notifications
-                Mailer::sendRfqCustomerNotice($rfqData);
-                Mailer::sendRfqAdminAlert($rfqData);
+                // Send email notifications safely (never fail RFQ submission if mail dispatch has network delay)
+                try {
+                    Mailer::sendRfqCustomerNotice($rfqData);
+                    Mailer::sendRfqAdminAlert($rfqData);
+                } catch (Exception $e) {
+                    error_log("RFQ email notification notice: " . $e->getMessage());
+                }
 
                 $successRfq = $rfqData;
             } catch (Exception $e) {

@@ -46,14 +46,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'created_at' => date('Y-m-d H:i:s')
             ]);
 
-            // Notify admin
-            Mailer::sendContactAdminAlert([
-                'name'    => $name,
-                'email'   => $email,
-                'phone'   => $phone,
-                'subject' => $subject,
-                'message' => $message
-            ]);
+            // Notify admin safely (never fail form submission if mail server has network delay)
+            try {
+                Mailer::sendContactAdminAlert([
+                    'name'    => $name,
+                    'email'   => $email,
+                    'phone'   => $phone,
+                    'subject' => $subject,
+                    'message' => $message
+                ]);
+            } catch (Exception $e) {
+                error_log("Contact notification notice: " . $e->getMessage());
+            }
 
             $success = true;
         } catch (Exception $e) {
